@@ -1,9 +1,26 @@
 import styles from './Item.module.css'
 import Card from '../UI/Card'
-import ItemQuantityBtns from './ItemQuantityBtns'
-import AddToCartBtn from '../UI/AddToCartBtn'
+import ItemForm from './ItemForm'
+import CartContext from '../../store/cart-context'
+import { useContext } from 'react'
 
 const Item = (props) => {
+
+    const cartCtx = useContext(CartContext)
+
+    const addToCartHandler = (quantity) => {
+        const item = {
+            id: props.id,
+            name: props.name,
+            quantity: quantity,
+            price: props.price
+        }
+        cartCtx.addItem(item)
+        console.log(cartCtx.items);
+    } 
+
+
+
     return (
         <Card id={props.id}>
             <div className={styles.item}>
@@ -13,16 +30,13 @@ const Item = (props) => {
                         <h3>{props.name}</h3>
                         <span>{props.dimentions}</span>
                         <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent facilisis, justo non gravida dapibus, sapien nibh suscipit enim, eget malesuada dolor ipsum id sapien. Proin lobortis metus at ante elementum...
+                        {`${props.description.substring(0,205)}...`}
                         </p>
                     </div>
                 </div>
                 <div className={styles.item__last}>
                     <span className={styles['item__last-price']}>${props.price}</span>
-                    <div  className={styles['item__last-quantity']}>
-                       <ItemQuantityBtns />
-                       <AddToCartBtn />
-                    </div>
+                    <ItemForm onAddToCart={addToCartHandler} />
                 </div>
             </div>
         </Card>

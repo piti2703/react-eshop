@@ -4,7 +4,13 @@
     margin: 0;
   }
 
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+}
+
   body {
     font-family: 'Montserrat', sans-serif;
-    background: #f6f6f6;
+    background: #e6e5e5;
+    font-size: 1.6rem;
   }

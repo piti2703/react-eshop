@@ -1,25 +1,29 @@
+import { Link } from 'react-router-dom'
 import styles from './Header.module.css'
-import CartIcon from '../Cart/CartIcon'
-import ArrowIcon from '../../assets/arrow.png'
+import CartIcon from '../../pages/Cart/CartIcon'
+import CartContext from '../../store/cart-context'
+import { useContext } from 'react'
 
 const Header = () => {
+
+    const cartCtx = useContext(CartContext)
+    const itemsQuantity = cartCtx.items.reduce((previousValue, currentValue) => {
+        return previousValue + currentValue.quantity 
+    }, 0)
+    
+
     return (
         <>
             <header className={styles.header}>
-                <h1>React E-shop</h1>
-                <button className={styles.header__button}>
+                <Link to='/' className={styles.header__logo}>React E-shop</Link>
+                <Link to={'/cart'} className={styles.header__button}>
                     <span className={styles.header__svg}>
                         <CartIcon />
                     </span>
-                    <span className={styles.header__quantity}>0</span>
-                    <span>$ 0.00</span>
-                </button>
+                    <span className={styles.header__quantity}>{itemsQuantity}</span>
+                    <span>$ {cartCtx.totalAmount.toFixed(2)}</span>
+                </Link>
             </header>
-            <div className={styles.header__banner}>
-                <h2>Furniture E-shop</h2>
-                <h3>Check our products</h3>
-                <img src={ArrowIcon} alt='arrow icon'/>
-            </div>
         </>
     )
 }

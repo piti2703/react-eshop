@@ -4,10 +4,8 @@
     background: #813405;
     border: none;
     border-radius: 8px;
-    font-size: 1.2rem;
-    height: 50px;
-    width: 50%;
-    min-width: 135px;
+    font-size: 1.6rem;
+    padding: 1em;
     transition: 0.3s background-color;
 }
 
@@ -15,8 +13,3 @@
     background-color: #D45113;
 }
 
-@media(min-width: 1200px) {
-    .btn {
-        width: 100%;
-    }
-}

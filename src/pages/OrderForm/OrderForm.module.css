@@ -1,0 +1,14 @@
+.order-form {
+    padding: 0 1em;
+    margin-top: 2.5em;
+}
+
+.order-form p {
+    font-size: 3rem;
+}
+
+@media(min-width: 1100px) {
+    .order-form {
+        padding: 0 10em;
+    }
+}

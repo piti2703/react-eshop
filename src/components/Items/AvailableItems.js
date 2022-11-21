@@ -1,13 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import styles from './AvailableItems.module.css'
 import Item from './Item'
 import LoadingSpinner from '../UI/LoadingSpinner'
+import CartContext from '../../store/cart-context'
 
 const AvailableItems = (params) => {
 
     const [items, setItems] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [httpError, setHttpError] = useState()
+    const cartCtx = useContext(CartContext)
+
 
     useEffect(() => {
         const itemsFetch = async () => {
@@ -24,20 +27,21 @@ const AvailableItems = (params) => {
                 id: key,
                 name: data[key].name,
                 dimentions: data[key].dimentions,
-                price: data[key].price
+                price: data[key].price,
+                description: data[key].description
                }
                loadedData.push(item)
             }
             setIsLoading(false)
             setItems(loadedData)
 
-            console.log(items);
+            cartCtx.showFooter(!isLoading)
         }
         itemsFetch().catch((error) => {
             setIsLoading(false)
             setHttpError(error.message)
         })
-    }, [])
+    }, [isLoading])
 
     if(isLoading) {
         return (
@@ -54,7 +58,7 @@ const AvailableItems = (params) => {
     }
     
     const itemsList = items.map((item) => (
-        <Item key={item.id} id={item.id} name={item.name} dimentions={item.dimentions} price={item.price} />
+        <Item key={item.id} id={item.id} name={item.name} dimentions={item.dimentions} price={item.price} description={item.description} />
     ))
 
 
