@@ -6,7 +6,6 @@ const CartProvider = (props) => {
     const defaultCartState = {
         items: [],
         totalAmount: 0,
-        itemsIsVisible: false
     }
 
     const cartReducer = (state, action) => {
@@ -15,7 +14,7 @@ const CartProvider = (props) => {
 
             case 'ADD':
             
-            const updatedTotalAmount = state.totalAmount + action.item.price * action.item.quantity
+            const updatedTotalAmount = state.totalAmount + action.item.price
             const existingItemIndex = state.items.findIndex((el) => {
                 return el.id === action.item.id
             })
@@ -24,9 +23,12 @@ const CartProvider = (props) => {
             let updatedItems
 
             if(existingItem) {
+
+
                 const updatedItem = {
                     ...existingItem,
-                    quantity: existingItem.quantity + action.item.quantity
+                    quantity: existingItem.quantity + action.item.quantity,
+                    price: existingItem.price + action.item.quantity * action.item.price
                 }
                 updatedItems = [...state.items]
                 updatedItems[existingItemIndex] = updatedItem
@@ -38,19 +40,56 @@ const CartProvider = (props) => {
             return {
                 items: updatedItems,
                 totalAmount: updatedTotalAmount,
-                itemsIsVisible: state.itemsIsVisible,
             }
 
-            case 'FOOTER':
+            case 'QUANTITY': 
+            
+            const existingItemIndex2 = state.items.findIndex((el) => {
+                return el.id === action.id
+            })
+            const existingItem2 = state.items[existingItemIndex2]
+            const existingItemPrice = action.price / existingItem2.quantity
+            let updatedItems2
+            let updatedTotalAmount2
 
-            const st = action.status
+            console.log(existingItemPrice);
+
+            if(existingItem2.quantity < action.quantity) {
+
+
+                const updatedItem2 = {
+                    ...existingItem2,
+                    quantity: existingItem2.quantity + 1,
+                    price: existingItem2.price + existingItemPrice
+                }
+                updatedItems2 = [...state.items]
+                updatedItems2[existingItemIndex2] = updatedItem2
+                updatedTotalAmount2 = state.totalAmount + existingItemPrice
+            }
+            else {
+                const updatedItem2 = {
+                    ...existingItem2,
+                    quantity: existingItem2.quantity - 1,
+                    price: existingItem2.price - existingItemPrice
+                }
+                updatedItems2 = [...state.items]
+                updatedItems2[existingItemIndex2] = updatedItem2
+                updatedTotalAmount2 = state.totalAmount - existingItemPrice
+            }
+
+
 
             return {
-                items: state.items,
-                totalAmount: state.totalAmount,
-                itemsIsVisible: st,
-        
+                items: updatedItems2,
+                totalAmount: updatedTotalAmount2,
             }
+            case 'RESET': 
+
+            return {
+                items: [],
+                totalAmount: 0,
+            }
+            
 
 
             default:
@@ -71,14 +110,18 @@ const CartProvider = (props) => {
         })
     }
 
-    const removFromCartHandler = (id) => {
-        
+    const resetCartHandler = () => {
+        dispatchCartAction({
+            type: 'RESET'
+        })
     }
 
-    const showFooterHandler = (status) => {
+    const updateQuantityHandler = (quantity, id, price) => {
         dispatchCartAction({
-            type: 'FOOTER',
-            status: status
+            type: 'QUANTITY',
+            quantity: quantity,
+            id: id,
+            price: price
         })
     }
 
@@ -87,8 +130,8 @@ const CartProvider = (props) => {
         totalAmount: cartState.totalAmount,
         itemsIsVisible: cartState.itemsIsVisible,
         addItem: addToCartHandler,
-        removeItem: removFromCartHandler,
-        showFooter: showFooterHandler
+        updateQuantity: updateQuantityHandler,
+        resetCart: resetCartHandler
     }
 
     return(

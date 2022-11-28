@@ -13,7 +13,8 @@ const Item = (props) => {
             id: props.id,
             name: props.name,
             quantity: quantity,
-            price: props.price
+            price: props.price * quantity,
+            dimentions: props.dimentions
         }
         cartCtx.addItem(item)
         console.log(cartCtx.items);

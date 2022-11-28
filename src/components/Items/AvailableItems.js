@@ -4,12 +4,11 @@ import Item from './Item'
 import LoadingSpinner from '../UI/LoadingSpinner'
 import CartContext from '../../store/cart-context'
 
-const AvailableItems = (params) => {
+const AvailableItems = (props) => {
 
     const [items, setItems] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [httpError, setHttpError] = useState()
-    const cartCtx = useContext(CartContext)
 
 
     useEffect(() => {
@@ -34,8 +33,7 @@ const AvailableItems = (params) => {
             }
             setIsLoading(false)
             setItems(loadedData)
-
-            cartCtx.showFooter(!isLoading)
+            props.onShowFooter()
         }
         itemsFetch().catch((error) => {
             setIsLoading(false)

@@ -12,6 +12,7 @@
     color: #fff;
     font-size: 2.6rem;
     text-decoration: none;
+    font-weight: 600;
 } 
 
 .header__button {
@@ -43,5 +44,11 @@
 @media(min-width: 1100px) {
     .header {
         padding: 0 10em;
+    }
+}
+
+@media(min-width: 1500px) {
+    .header {
+        padding: 0 15em;
     }
 }

@@ -1,16 +1,27 @@
-import styles from './Main.module.css'
+// import styles from './Main.module.css'
 import Header from '../../components/Header/Header'
 import HeaderBanner from '../../components/Header/HeaderBanner'
 import AvailableItems from '../../components/Items/AvailableItems'
 import Footer from '../../components/Footer/Footer'
+import { useState } from 'react'
+
 
 const Main = (params) => {
+
+    const [itemsIsVisible, setItemsIsVisible] = useState(false)
+
+
+    const showFooterHandler = () => {
+        setItemsIsVisible(true)
+    }
+
+
     return (
         <>
             <Header />
             <HeaderBanner />
-            <AvailableItems />
-            <Footer />
+            <AvailableItems onShowFooter={showFooterHandler} />
+            {itemsIsVisible && <Footer />} 
         </>
     )
 }

@@ -22,7 +22,7 @@ const ItemForm = (props) => {
 
     return (
         <form className={styles.form} onSubmit={submitHandler}>
-            <QuantityChangeBtns ref={quantityInputRef} />
+            <QuantityChangeBtns quantity={1} ref={quantityInputRef} />
             <Button>Add to Cart</Button>
         </form>
     )
