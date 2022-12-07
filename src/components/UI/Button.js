@@ -4,9 +4,15 @@ const Button = (props) => {
 
     const classes = `${styles.btn} ${props.className}`
 
+    let onClick
+
+    if(props.onReset) {
+        onClick = props.onReset
+    }
+
 
     return (
-        <button className={classes} onClick={props.onReset}>
+        <button className={classes} onClick={onClick}  disabled={props.disabled}>
             {props.children}
         </button>
     )

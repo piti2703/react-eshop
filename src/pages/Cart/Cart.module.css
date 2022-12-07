@@ -110,14 +110,6 @@
 }
 
 
-/* .cart__btns-quantity {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.cart__btns-quantity i {
-    padding-left: 1em;
-} */
 
 @media(min-width: 576px) {
     .cart__top-text {

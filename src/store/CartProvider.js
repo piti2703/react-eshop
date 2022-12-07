@@ -5,6 +5,7 @@ const CartProvider = (props) => {
 
     const defaultCartState = {
         items: [],
+        orders: [],
         totalAmount: 0,
     }
 
@@ -39,6 +40,7 @@ const CartProvider = (props) => {
 
             return {
                 items: updatedItems,
+                orders: [],
                 totalAmount: updatedTotalAmount,
             }
 
@@ -81,15 +83,25 @@ const CartProvider = (props) => {
 
             return {
                 items: updatedItems2,
+                orders: [],
                 totalAmount: updatedTotalAmount2,
             }
             case 'RESET': 
 
             return {
                 items: [],
+                orders: [],
                 totalAmount: 0,
             }
+
+            case 'ORDER':
+
             
+            return {
+                items: state.items,
+                orders: action.orders,
+                totalAmount: state.totalAmount,
+            }
 
 
             default:
@@ -110,6 +122,13 @@ const CartProvider = (props) => {
         })
     }
 
+    const addOrder = (order) => {
+        dispatchCartAction({
+            type: 'ORDER',
+            order: order
+        })
+    }
+
     const resetCartHandler = () => {
         dispatchCartAction({
             type: 'RESET'
@@ -127,11 +146,13 @@ const CartProvider = (props) => {
 
     const cartContext = {
         items: cartState.items,
+        orders: cartState.orders,
         totalAmount: cartState.totalAmount,
         itemsIsVisible: cartState.itemsIsVisible,
         addItem: addToCartHandler,
         updateQuantity: updateQuantityHandler,
-        resetCart: resetCartHandler
+        resetCart: resetCartHandler,
+        addOrder: addOrder
     }
 
     return(

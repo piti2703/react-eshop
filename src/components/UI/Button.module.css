@@ -13,3 +13,9 @@
     background-color: #D45113;
 }
 
+.btn:disabled {
+    background-color: #ccc;
+    color: #292929;
+    border-color: #ccc;
+    cursor: not-allowed;
+}

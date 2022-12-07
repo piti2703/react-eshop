@@ -9,8 +9,35 @@ html {
     scroll-behavior: smooth;
 }
 
-  body {
+body {
     font-family: 'Montserrat', sans-serif;
     background: #e6e5e5;
     font-size: 1.6rem;
   }
+
+
+.form__field.invalid input {
+    border: 1px solid #b40e0e;
+    background-color: #fddddd;
+  }
+  
+.form__field.invalid input:focus {
+    border-color: #ff8800;
+    background-color: #fbe8d2;
+  }
+
+.form__field input:focus {
+    outline: none;
+    border-color: #240370;
+    background-color: #e0d4fd;
+}
+
+.form__field.invalid p {
+  color: #b40e0e;
+  padding: 0.8em 0;
+}
+
+.form__field {
+  margin-bottom: 1rem;
+
+}

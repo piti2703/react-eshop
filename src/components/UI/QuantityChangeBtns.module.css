@@ -6,7 +6,7 @@
     justify-content: space-between;
 }
 
-.btns button, input {
+.btns button, .btns input {
     background: none;
     border: none;
     cursor: pointer;

@@ -19,8 +19,6 @@ const Cart = (props) => {
         cartCtx.resetCart()
     }
 
-
-
     return (
         <div>
             <Header />
