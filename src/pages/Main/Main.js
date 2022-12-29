@@ -6,7 +6,7 @@ import Footer from '../../components/Footer/Footer'
 import { useState } from 'react'
 
 
-const Main = (params) => {
+const Main = () => {
 
     const [itemsIsVisible, setItemsIsVisible] = useState(false)
 

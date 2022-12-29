@@ -10,13 +10,20 @@ const Header = () => {
     const itemsQuantity = cartCtx.items.reduce((previousValue, currentValue) => {
         return previousValue + currentValue.quantity 
     }, 0)
+
+    const resetCart = () => {
+        if(cartCtx.orders.name) {
+                    cartCtx.resetCart()
+                    console.log('test');
+        }
+    }
     
 
     return (
         <>
             <header className={styles.header}>
-                <Link to='/' className={styles.header__logo}>React E-shop</Link>
-                <Link to={'/cart'} className={styles.header__button}>
+                <Link to='/' onClick={resetCart} className={styles.header__logo}>React E-shop</Link>
+                <Link to={'/cart'} onClick={resetCart} className={styles.header__button}>
                     <span className={styles.header__svg}>
                         <CartIcon />
                     </span>

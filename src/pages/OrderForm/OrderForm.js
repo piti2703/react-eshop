@@ -5,15 +5,16 @@ import Button from '../../components/UI/Button'
 import useInput from '../../hooks/use-input'
 import { useContext } from 'react'
 import CartContext from '../../store/cart-context'
+import { Link } from 'react-router-dom'
 
-const OrderForm = (params) => {
+const OrderForm = () => {
 
     const cartCtx = useContext(CartContext)
 
 
 
 
-    const nameValidation = (value) => value.trim() !== '' && value.length > 5;
+    const basicValidation = (value) => value.trim() !== '' && value.length > 5;
 
     const {
         value: enteredName,
@@ -22,7 +23,7 @@ const OrderForm = (params) => {
         valueChangeHandler: nameChangeHandler,
         inputBlurHandler: nameBlurHandler,
         reset: resetNameInput
-    } = useInput(nameValidation)
+    } = useInput(basicValidation)
     const {
         value: enteredEmail,
         isValid: enteredEmailIsValid,
@@ -30,7 +31,7 @@ const OrderForm = (params) => {
         valueChangeHandler: emailChangeHandler,
         inputBlurHandler: emailBlurHandler,
         reset: resetEmailInput
-    } = useInput(nameValidation)
+    } = useInput(basicValidation)
     const {
         value: enteredPhone,
         isValid: enteredPhoneIsValid,
@@ -38,7 +39,7 @@ const OrderForm = (params) => {
         valueChangeHandler: phoneChangeHandler,
         inputBlurHandler: phoneBlurHandler,
         reset: resetPhoneInput
-    } = useInput(nameValidation)
+    } = useInput(basicValidation)
     const {
         value: enteredCity,
         isValid: enteredCityIsValid,
@@ -46,7 +47,7 @@ const OrderForm = (params) => {
         valueChangeHandler: cityChangeHandler,
         inputBlurHandler: cityBlurHandler,
         reset: resetCityInput
-    } = useInput(nameValidation)
+    } = useInput(basicValidation)
     const {
         value: enteredStreet,
         isValid: enteredStreetIsValid,
@@ -54,7 +55,7 @@ const OrderForm = (params) => {
         valueChangeHandler: streetChangeHandler,
         inputBlurHandler: streetBlurHandler,
         reset: resetStreetInput
-    } = useInput(nameValidation)
+    } = useInput(basicValidation)
     const {
         value: enteredZip,
         isValid: enteredZipIsValid,
@@ -62,7 +63,7 @@ const OrderForm = (params) => {
         valueChangeHandler: zipChangeHandler,
         inputBlurHandler: zipBlurHandler,
         reset: resetZipInput
-    } = useInput(nameValidation)
+    } = useInput(basicValidation)
 
 
     let formIsValid = false
@@ -72,8 +73,7 @@ const OrderForm = (params) => {
     }
 
     const formSubmitHandler = (e) => {
-        e.preventDefault()
-
+   
         const order = {
             name: enteredName,
             email: enteredEmail,
@@ -108,7 +108,7 @@ const OrderForm = (params) => {
             <div className={styles.form}>
                 <Card className={styles.form__card}>
                     <h2>SHIPPING INFORMATION</h2>
-                    <form onSubmit={formSubmitHandler}>
+                    <form>
                         <div className={nameClasses}>
                             <label htmlFor='name'>Name and surname</label>
                             <input type='text' id='name' value={enteredName} onChange={nameChangeHandler} onBlur={nameBlurHandler} />
@@ -139,7 +139,7 @@ const OrderForm = (params) => {
                             <input type='text' id='zip' value={enteredZip} onChange={zipChangeHandler} onBlur={zipBlurHandler} />
                             {zipInputHasError && (<p className='error-text'>ZIP code must not be empty.</p>)}
                         </div>
-                        <Button disabled={!formIsValid}>Submit your order</Button>
+                        <Link to='/order-details' onClick={formSubmitHandler}><Button disabled={!formIsValid}>Submit your order</Button></Link>
                     </form>
                 </Card>
             </div>

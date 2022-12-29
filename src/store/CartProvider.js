@@ -29,7 +29,7 @@ const CartProvider = (props) => {
                 const updatedItem = {
                     ...existingItem,
                     quantity: existingItem.quantity + action.item.quantity,
-                    price: existingItem.price + action.item.quantity * action.item.price
+                    price: existingItem.price + action.item.price
                 }
                 updatedItems = [...state.items]
                 updatedItems[existingItemIndex] = updatedItem
@@ -99,7 +99,7 @@ const CartProvider = (props) => {
             
             return {
                 items: state.items,
-                orders: action.orders,
+                orders: action.order,
                 totalAmount: state.totalAmount,
             }
 

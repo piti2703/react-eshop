@@ -19,9 +19,11 @@ const ItemForm = (props) => {
         props.onAddToCart(enteredValueNumber)
     }
 
+    const classes = `${styles.form} ${props.className}`
+
 
     return (
-        <form className={styles.form} onSubmit={submitHandler}>
+        <form className={classes} onSubmit={submitHandler}>
             <QuantityChangeBtns quantity={1} ref={quantityInputRef} />
             <Button>Add to Cart</Button>
         </form>

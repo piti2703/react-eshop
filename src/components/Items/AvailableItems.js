@@ -1,46 +1,41 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState} from 'react'
 import styles from './AvailableItems.module.css'
 import Item from './Item'
 import LoadingSpinner from '../UI/LoadingSpinner'
-import CartContext from '../../store/cart-context'
+import useHttp from '../../hooks/use-http'
 
 const AvailableItems = (props) => {
 
     const [items, setItems] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
-    const [httpError, setHttpError] = useState()
 
+    const transformItems = (itemsObj) => {
 
-    useEffect(() => {
-        const itemsFetch = async () => {
-            const response = await fetch('https://furniture-6a2e0-default-rtdb.firebaseio.com/furniture.json')
-            const data = await response.json();
+        const loadedData = []
     
-            if(!response.ok) {
-                throw new Error('Something went wrong')
-            }    
-            const loadedData = []
-    
-            for (const key in data) {
+            for (const key in itemsObj) {
                const item = {
                 id: key,
-                name: data[key].name,
-                dimentions: data[key].dimentions,
-                price: data[key].price,
-                description: data[key].description
+                name: itemsObj[key].name,
+                dimentions: itemsObj[key].dimentions,
+                price: itemsObj[key].price,
+                description: itemsObj[key].description,
+                thumbnail: itemsObj[key].thumbnail,
+                photo1: itemsObj[key].photo1, 
+                photo2: itemsObj[key].photo2, 
+                photo3: itemsObj[key].photo3, 
+                photo4: itemsObj[key].photo4, 
                }
                loadedData.push(item)
+               props.onShowFooter()
             }
-            setIsLoading(false)
-            setItems(loadedData)
-            props.onShowFooter()
-        }
-        itemsFetch().catch((error) => {
-            setIsLoading(false)
-            setHttpError(error.message)
-        })
-    }, [isLoading])
 
+            setItems(loadedData)
+
+    }
+
+    const {isLoading, httpError}  = useHttp({url: 'https://furniture-6a2e0-default-rtdb.firebaseio.com/furniture.json'}, transformItems)
+
+    
     if(isLoading) {
         return (
             <LoadingSpinner />
@@ -50,14 +45,31 @@ const AvailableItems = (props) => {
     if(httpError) {
         return (
             <div>
-                <p>{httpError}</p>
+                <p className='error'>{httpError}</p>
             </div>
         )
     }
     
-    const itemsList = items.map((item) => (
-        <Item key={item.id} id={item.id} name={item.name} dimentions={item.dimentions} price={item.price} description={item.description} />
-    ))
+
+
+
+    const itemsList = items.map((item) => {
+        return (
+            <Item 
+            key={item.id} 
+            id={item.id} 
+            name={item.name} 
+            dimentions={item.dimentions} 
+            price={item.price} 
+            description={item.description} 
+            thumbnail={item.thumbnail}
+            photo1={item.photo1}
+            photo2={item.photo2}
+            photo3={item.photo3}
+            photo4={item.photo4}
+            />
+        )
+})
 
 
 

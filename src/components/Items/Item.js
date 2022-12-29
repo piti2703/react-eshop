@@ -3,12 +3,14 @@ import Card from '../UI/Card'
 import ItemForm from './ItemForm'
 import CartContext from '../../store/cart-context'
 import { useContext } from 'react'
+import { Link } from 'react-router-dom'
 
 const Item = (props) => {
 
     const cartCtx = useContext(CartContext)
 
     const addToCartHandler = (quantity) => {
+
         const item = {
             id: props.id,
             name: props.name,
@@ -17,16 +19,19 @@ const Item = (props) => {
             dimentions: props.dimentions
         }
         cartCtx.addItem(item)
-        console.log(cartCtx.items);
-    } 
-
+        console.log(item);
+    }
+    
+    
+    let src
+    src = 'products/' + props.id
 
 
     return (
         <Card id={props.id}>
             <div className={styles.item}>
-                <div className={styles.item__first}>
-                    <img src='https://placehold.jp/300x200.png' alt='placeholder img' className={styles['item__first-img']}/>
+                <Link to={src} className={styles.item__first}>
+                    <img src={props.thumbnail} alt='placeholder img' className={styles['item__first-img']}/>
                     <div className={styles['item__first-details']}>
                         <h3>{props.name}</h3>
                         <span>{props.dimentions}</span>
@@ -34,7 +39,7 @@ const Item = (props) => {
                         {`${props.description.substring(0,205)}...`}
                         </p>
                     </div>
-                </div>
+                </Link>
                 <div className={styles.item__last}>
                     <span className={styles['item__last-price']}>${props.price}</span>
                     <ItemForm onAddToCart={addToCartHandler} />

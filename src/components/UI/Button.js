@@ -10,7 +10,6 @@ const Button = (props) => {
         onClick = props.onReset
     }
 
-
     return (
         <button className={classes} onClick={onClick}  disabled={props.disabled}>
             {props.children}

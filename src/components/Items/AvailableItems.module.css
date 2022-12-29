@@ -3,7 +3,18 @@
 }
 
 
+.items a {
+    text-decoration: none;
+    color: #000;
+}
+
+
 @media(min-width: 1100px) {
+    .items {
+        padding: 0 10em;
+    }
+}
+@media(min-width: 1500px) {
     .items {
         padding: 0 15em;
     }

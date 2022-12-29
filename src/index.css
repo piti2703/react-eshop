@@ -14,7 +14,10 @@ body {
     background: #e6e5e5;
     font-size: 1.6rem;
   }
-
+.error {
+  text-align: center;
+  padding: 1em 0;
+}
 
 .form__field.invalid input {
     border: 1px solid #b40e0e;
