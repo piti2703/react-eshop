@@ -12,7 +12,7 @@
 
 .cart__card {
     min-height: 83vh;
-    position: relative;
+    position: relative; 
 }
 
 .cart__item {
@@ -83,15 +83,16 @@
     justify-content: space-between;
 }
 
-.cart__bottom-btn {
+/* .cart__bottom-btn {
     width: 160px;
-}
+} */
 
 .cart__items {
-    height: 55vh;
+    /* height: 55vh; */
     padding-right: 1em;
-    overflow: scroll;
-    overflow-x: hidden;
+    padding-bottom: 5em
+    /* overflow: scroll;
+    overflow-x: hidden; */
 }
 .cart__items p {
     font-size: 2rem;
